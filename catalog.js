@@ -15,13 +15,12 @@ const renderPostItem = item => `
     </a>
 `
 
-const getPostItems = ({ limit, page }) => {
-    return fetch(`https://jsonplaceholder.typicode.com/posts?_limit=${limit}&_page=${page}`)
-        .then(async res => {
-            const total = +res.headers.get('x-total-count')
-            const items = await res.json()
-            return { items, total }
-        })
+const getPostItems = async ({ limit, page }) => {
+    const res = await fetch(`https://jsonplaceholder.typicode.com/posts?_limit=${limit}&_page=${page}`)
+    const total = +res.headers.get('x-total-count')
+    const items = await res.json()
+    
+    return { items, total }
 }
 
 const renderPhotoItem = item => `
