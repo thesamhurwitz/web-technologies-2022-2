@@ -2,6 +2,11 @@ import { Post } from "./src/components/post.js"
 
 const getPost = async ({ id }) => {
     const res = await fetch(`https://jsonplaceholder.typicode.com/posts/${id}`)
+
+    if (!res.ok) {
+        throw new Error(res.statusText)
+    }
+
     const data = await res.json()
 
     return { data }
@@ -9,6 +14,11 @@ const getPost = async ({ id }) => {
 
 const getComments = async ({ id }) => {
     const res = await fetch(`https://jsonplaceholder.typicode.com/posts/${id}/comments`)
+
+    if (!res.ok) {
+        throw new Error(res.statusText)
+    }
+    
     const items = await res.json()
 
     return { items }

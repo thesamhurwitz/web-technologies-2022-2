@@ -78,7 +78,8 @@ export class Catalog {
             this.renderItems(items)
             this.renderPagination()
         } catch (error) {
-            console.log(error);
+            console.error(error)
+            alert('Could not load posts');
         }
     }
 

@@ -41,7 +41,8 @@ export class Post {
             this.renderPost(post)
             this.renderComments(comments)
         } catch (error) {
-            console.log(error);
+            console.error(error)
+            alert('Could not load post');
         }
     }
 

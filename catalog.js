@@ -17,6 +17,9 @@ const renderPostItem = item => `
 
 const getPostItems = async ({ limit, page }) => {
     const res = await fetch(`https://jsonplaceholder.typicode.com/posts?_limit=${limit}&_page=${page}`)
+    if (!res.ok) {
+        throw new Error(res.statusText)
+    }
     const total = +res.headers.get('x-total-count')
     const items = await res.json()
 
