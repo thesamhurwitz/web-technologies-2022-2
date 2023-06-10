@@ -1,4 +1,13 @@
 <?php
+function logRequest()
+{
+    $time = date('Y-m-d H:i:s');
+    $log = $time . "\n";
+    file_put_contents('logs/log.txt', $log, FILE_APPEND);
+}
+
+logRequest();
+
 function buildGallery($dir)
 {
     $files = scandir($dir);
