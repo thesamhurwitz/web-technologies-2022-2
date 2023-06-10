@@ -2,7 +2,7 @@ import { Catalog } from "./src/components/catalog.js"
 
 const renderPostItem = item => `
     <a  
-        href="posts/${item.id}"
+        href="post.html?id=${item.id}"
         class="post-item"
     >
         <span class="post-item__title">
@@ -19,7 +19,7 @@ const getPostItems = async ({ limit, page }) => {
     const res = await fetch(`https://jsonplaceholder.typicode.com/posts?_limit=${limit}&_page=${page}`)
     const total = +res.headers.get('x-total-count')
     const items = await res.json()
-    
+
     return { items, total }
 }
 
