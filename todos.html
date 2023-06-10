@@ -18,7 +18,32 @@
 </header>
 
 <main class="main">
+    <form
+        id="todo-add-form"
+        class="form"
+    >
+    <label class="text-field">
+        <input
+                type="text"
+                class="text-field__input"
+                name="description"
+                placeholder=""
+        >
+        <span class="text-field__error"></span>
+    </label>
 
+    <button
+            type="submit"
+            class="button"
+    >
+        Создать
+    </button>
+    </form>
+
+    <div id="todo-list">
+
+
+    </div>
 </main>
 
 <div class="loader-wrapper" data-loading>
