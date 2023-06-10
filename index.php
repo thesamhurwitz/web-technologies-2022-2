@@ -1,11 +1,16 @@
 <?php
-$photos = array(
-    "img/photo1.jpg",
-    "img/photo2.jpg",
-    "img/photo3.png",
-    "img/photo4.jpg",
-    "img/photo5.jpg"
-);
+function buildGallery($dir)
+{
+    $files = scandir($dir);
+    $files = array_diff($files, array('.', '..', '.DS_Store'));
+    echo '<div class="gallery">';
+    foreach ($files as $file) {
+        if (preg_match('/\.(jpg|jpeg|png|gif)$/i', $file)) {
+            echo '<img src="' . $dir . '/' . $file . '" onclick="window.open(\'' . $dir . '/' . $file . '\', \'_blank\')">';
+        }
+    }
+    echo '</div>';
+}
 ?>
 <!DOCTYPE html>
 <html>
@@ -29,11 +34,7 @@ $photos = array(
 </head>
 
 <body>
-    <div class="gallery">
-        <?php foreach ($photos as $photo): ?>
-        <img src="<?php echo $photo; ?>" onclick="window.open('<?php echo $photo; ?>', '_blank')">
-        <?php endforeach; ?>
-    </div>
+    <?php buildGallery('img'); ?>
 </body>
 
 </html>
