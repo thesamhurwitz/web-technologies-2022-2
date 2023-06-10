@@ -1,14 +1,22 @@
 export class Post {
     #el = null
     #renderPost = null
+    #postEl = null
+    #commentsEl = null
     #getPost = null
     #postId = null
+    #getComments = null
+    #renderComment = null
 
     constructor(el, options) {
-        const { renderPost, getPost } = options
+        const { renderPost, getPost, getComments, renderComment } = options
         this.#el = el
+        this.#postEl = el.querySelector('[data-post]')
+        this.#commentsEl = el.querySelector('[data-comments]')
         this.#renderPost = renderPost
         this.#getPost = getPost
+        this.#getComments = getComments
+        this.#renderComment = renderComment
 
         window.onpopstate = () => {
             this.init()
@@ -26,16 +34,24 @@ export class Post {
 
     async loadPost () {
         try {
-            const { data } = await this.#getPost({ id: this.#postId })
-            this.renderPost(data)
+            const [post, comments] = await Promise.all([
+                this.#getPost({ id: this.#postId }),
+                this.#getComments({ id: this.#postId})
+            ])
+            this.renderPost(post)
+            this.renderComments(comments)
         } catch (error) {
             console.log(error);
         }
     }
 
-    renderPost (data) {
+    renderPost ({ data }) {
         const element = document.createElement('div')
         element.innerHTML = this.#renderPost(data)
-        this.#el.appendChild(element)
+        this.#postEl.appendChild(element)
+    }
+
+    renderComments({ items }) {
+        this.#commentsEl.innerHTML = items.map(c => this.#renderComment(c)).join('')
     }
 }

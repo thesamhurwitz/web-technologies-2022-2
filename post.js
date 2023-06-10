@@ -4,23 +4,35 @@ const getPost = async ({ id }) => {
     const res = await fetch(`https://jsonplaceholder.typicode.com/posts/${id}`)
     const data = await res.json()
 
-    console.log(data)
-
     return { data }
 }
 
-const renderPost = ({ id, body, title }) => `
+const getComments = async ({ id }) => {
+    const res = await fetch(`https://jsonplaceholder.typicode.com/posts/${id}/comments`)
+    const items = await res.json()
+
+    return { items }
+}
+
+const renderPost = ({ body, title }) => `
     <h1>${title}</h1>
     <div>
         ${body}
     </div>
 `
 
+const renderComment = ({ name, body }) => `
+    <h4>${name}</h4>
+    <div>${body}</div>
+`
+
 const init = () => {
     const post = document.getElementById('post')
     new Post(post, { 
         renderPost,
-        getPost
+        getPost,
+        renderComment,
+        getComments,
      }).init()
 }
 
